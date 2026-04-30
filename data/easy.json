@@ -1,0 +1,62 @@
+{
+  "😴 Ngủ": [
+    {"key":"noi","name":"Cũi / nôi","desc":"Không ngủ chung giường","need":true,"link":"https://s.shopee.vn/901fVCCmjT"},
+    {"key":"nhong","name":"Nhộng ngủ / túi ngủ","desc":"Giảm giật mình, ngủ sâu hơn","need":true,"link":"https://s.shopee.vn/40czYTX68m"},
+    {"key":"rem_blackout","name":"Rèm blackout","desc":"Phòng tối hoàn toàn","need":true,"link":"https://s.shopee.vn/4AwPlBbUNS"},
+    {"key":"white_noise","name":"Máy white noise","desc":"Ổn định giấc ngủ","need":true,"link":"https://s.shopee.vn/6pxAwQ7zan"},
+
+    {"key":"camera","name":"Camera baby monitor","desc":"Theo dõi bé từ xa","need":false,"link":"https://s.shopee.vn/1VvebXRL2X"},
+    {"key":"den_ngu","name":"Đèn ngủ ánh sáng đỏ/vàng","desc":"Không phá melatonin","need":false,"link":"https://s.shopee.vn/2BBLPNOdwE"},
+    {"key":"nhiet_ke","name":"Nhiệt kế phòng","desc":"Giữ 26–28°C","need":false,"link":"https://s.shopee.vn/8098MH0T3A"}
+  ],
+
+  "🍼 Ăn": [
+    {"key":"binh_sua","name":"Bình sữa + núm","desc":"Chọn đúng size cho bé","need":true,"link":""},
+    {"key":"may_ham","name":"Máy hâm sữa","desc":"Cứu đêm cực mạnh","need":true,"link":""},
+    {"key":"tiet_trung","name":"Máy tiệt trùng","desc":"Giữ vệ sinh bình","need":true,"link":""},
+    {"key":"khan_sua","name":"Khăn sữa / khăn xô","desc":"Dùng rất nhiều mỗi ngày","need":true,"link":""},
+	{"key":"goi_chong_trao_nguoc","name":"Gối Chống trào ngược","desc":"Bé nằm bú không bị ọc, trào ngược","need":true,"link":""},
+
+    {"key":"may_hut","name":"Máy hút sữa","desc":"Dành cho mẹ hút sữa","need":false,"link":""},
+    {"key":"tui_tru","name":"Túi trữ sữa","desc":"Bảo quản sữa","need":false,"link":""},
+    {"key":"binh_tru","name":"Bình trữ sữa","desc":"Trữ sữa tiện lợi","need":false,"link":""}
+  ],
+
+  "🧸 Chơi": [
+    {"key":"flashcard","name":"Flashcard trắng đen","desc":"0–3 tháng","need":true,"link":""},
+    {"key":"treo_noi","name":"Treo nôi trắng đen","desc":"Kích thích thị giác","need":true,"link":""},
+    {"key":"sach_vai_den","name":"Sách vải trắng đen","desc":"Sờ + nhìn","need":true,"link":""},
+
+    {"key":"playmat","name":"Thảm chơi (playmat)","desc":"3–6 tháng","need":true,"link":""},
+    {"key":"gym","name":"Gym treo đồ chơi","desc":"Bé tập vận động","need":true,"link":""},
+    {"key":"guong","name":"Gương an toàn","desc":"Bé thích nhìn","need":false,"link":""},
+    {"key":"treo_am_thanh","name":"Đồ treo có âm thanh","desc":"Kích thích nhẹ","need":false,"link":""},
+
+    {"key":"rattle","name":"Rattle (lắc tay)","desc":"Cầm nắm","need":false,"link":""},
+    {"key":"teether","name":"Teether (gặm nướu)","desc":"Khi mọc răng","need":false,"link":""},
+    {"key":"cause_effect","name":"Đồ chơi cause-effect","desc":"Bấm → có âm thanh","need":false,"link":""}
+  ],
+
+  "📚 Sách": [
+    {"key":"sach_vai","name":"Sách vải","desc":"0–6 tháng","need":true,"link":""},
+    {"key":"sach_trang_den","name":"Sách trắng đen","desc":"Kích thích thị giác","need":true,"link":""},
+    {"key":"sach_texture","name":"Sách texture","desc":"Có thể sờ","need":true,"link":""},
+
+    {"key":"sach_mau","name":"Sách tranh màu","desc":"6 tháng+","need":false,"link":""},
+    {"key":"sach_tuong_tac","name":"Sách tương tác","desc":"Lật mở","need":false,"link":""}
+  ],
+
+  "🛁 Sinh hoạt": [
+    {"key":"bon_tam","name":"Bồn tắm","desc":"Tắm cho bé","need":true,"link":""},
+    {"key":"khan_tam","name":"Khăn tắm mềm","desc":"Cho bé","need":true,"link":""},
+    {"key":"sua_tam","name":"Sữa tắm dịu nhẹ","desc":"Không kích ứng","need":true,"link":""},
+    {"key":"bim","name":"Tã / bỉm","desc":"Thiết yếu mỗi ngày","need":true,"link":""},
+    {"key":"kem_ham","name":"Kem chống hăm","desc":"Tránh hăm da","need":true,"link":""}
+  ],
+
+  "🧩 Hỗ trợ EASY": [
+    {"key":"app_easy","name":"App theo dõi EASY","desc":"Ghi log ăn ngủ","need":false,"link":""},
+    {"key":"dong_ho","name":"Đồng hồ / nhắc giờ","desc":"Giữ lịch ổn định","need":false,"link":""},
+    {"key":"routine","name":"Routine cố định","desc":"Quan trọng hơn mọi món đồ","need":false,"link":""}
+  ]
+}

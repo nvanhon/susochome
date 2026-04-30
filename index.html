@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+body { background: #fafafa; }
+
+.tab { display: none; }
+.tab.active { display: block; }
+
+/* SECTION COLORS */
+.section-sleep { background: #fed7aa; }
+.section-eat { background: #bfdbfe; }
+.section-play { background: #bbf7d0; }
+.section-book { background: #fef3c7; }
+.section-care { background: #fde2e4; }
+.section-support { background: #e9d5ff; }
+
+.badge-need { background:#fee2e2; color:#dc2626; }
+.badge-optional { background:#e5e7eb; color:#6b7280; }
+
+.menu-inactive {
+  background:#e5e7eb;
+  color:#6b7280;
+}
+
+.card:hover {
+  transform: scale(1.01);
+  transition: 0.2s;
+}
+</style>
+</head>
+
+<body class="p-4 text-gray-800 font-sans max-w-xl mx-auto">
+
+<h1 class="text-2xl font-bold mb-4">🏡 susochome</h1>
+
+<!-- MENU -->
+<div class="flex gap-2 mb-5">
+  <button id="btn-easy" onclick="switchTab('easy')" class="flex-1 py-2 rounded-lg">Đồ EASY</button>
+  <button id="btn-deal" onclick="switchTab('deal')" class="flex-1 py-2 rounded-lg">Flash sale</button>
+  <button id="btn-tool" onclick="switchTab('tool')" class="flex-1 py-2 rounded-lg">Chuyển link</button>
+</div>
+
+<!-- TABS -->
+<div id="easy" class="tab active"></div>
+<div id="deal" class="tab"></div>
+
+<div id="tool" class="tab">
+  <h2 class="text-lg font-semibold mb-3">🔗 Chuyển đổi link</h2>
+  <input id="inputLink" class="w-full p-3 border rounded-lg mb-3" placeholder="Dán link Shopee..." />
+  <button onclick="copyLink()" class="bg-purple-400 text-white w-full py-2 rounded-lg">Copy link</button>
+</div>
+
+<script>
+
+let easyData = {};
+let dealData = [];
+
+// ================= LOAD DATA =================
+async function loadData(){
+  try {
+    const easyRes = await fetch("./data/easy.json");
+    easyData = await easyRes.json();
+
+    const dealRes = await fetch("./data/flashsale.json");
+    dealData = await dealRes.json();
+
+    renderEasy();
+    renderDeal();
+
+  } catch (err) {
+    console.error("Lỗi load JSON:", err);
+  }
+}
+
+// ================= SECTION COLOR =================
+function getSectionClass(name){
+  if(name.includes("Ngủ")) return "section-sleep";
+  if(name.includes("Ăn")) return "section-eat";
+  if(name.includes("Chơi")) return "section-play";
+  if(name.includes("Sách")) return "section-book";
+  if(name.includes("Sinh")) return "section-care";
+  return "section-support";
+}
+
+// ================= RENDER EASY =================
+function renderEasy(){
+  const container = document.getElementById("easy");
+  container.innerHTML = "";
+
+  Object.keys(easyData).forEach(section => {
+
+    const items = easyData[section];
+    const secClass = getSectionClass(section);
+
+    let html = `
+    <div class="${secClass} p-4 rounded-2xl mb-6">
+      <h2 class="font-semibold mb-3">${section}</h2>
+    `;
+
+    items.forEach(item=>{
+      html += `
+      <div class="bg-white p-4 rounded-xl shadow mb-3 card">
+
+        <div class="flex justify-between items-center mb-1">
+          <b>${item.name}</b>
+          <span class="${item.need ? 'badge-need' : 'badge-optional'} text-xs px-2 py-1 rounded">
+            ${item.need ? 'Cần cho EASY' : 'Không bắt buộc'}
+          </span>
+        </div>
+
+        <p class="text-sm text-gray-500 mb-2">${item.desc}</p>
+
+        <a href="${item.link || '#'}"
+           target="_blank"
+           class="block bg-orange-400 text-white text-center py-2 rounded-lg">
+           ${item.link ? "Xem trên Shopee" : "Chưa gắn link"}
+        </a>
+
+      </div>
+      `;
+    });
+
+    html += `</div>`;
+    container.innerHTML += html;
+  });
+}
+
+// ================= RENDER DEAL =================
+function renderDeal(){
+  const container = document.getElementById("deal");
+
+  let html = `
+  <h2 class="text-lg font-semibold mb-3">🔥 Flash Sale</h2>
+  <div class="grid grid-cols-2 gap-3">
+  `;
+
+  dealData.forEach(item=>{
+    html += `
+    <a href="${item.link}" target="_blank"
+       class="bg-white p-3 rounded-xl shadow">
+
+      <p class="font-semibold text-sm">${item.title}</p>
+      <p class="text-pink-500 font-bold">${item.price}</p>
+      <span class="text-xs text-gray-500">${item.tag}</span>
+
+    </a>
+    `;
+  });
+
+  html += "</div>";
+  container.innerHTML = html;
+}
+
+// ================= TAB =================
+function switchTab(tab){
+
+  // content
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(tab).classList.add('active');
+
+  // reset button
+  ['easy','deal','tool'].forEach(t=>{
+    const btn = document.getElementById('btn-' + t);
+    btn.classList.add('menu-inactive');
+    btn.style.background = '#e5e7eb';
+  });
+
+  // active button
+  const active = document.getElementById('btn-' + tab);
+  active.classList.remove('menu-inactive');
+
+  if(tab==='easy') active.style.background='#fb923c';
+  if(tab==='deal') active.style.background='#f472b6';
+  if(tab==='tool') active.style.background='#a78bfa';
+}
+
+// ================= TOOL =================
+function copyLink(){
+  const input = document.getElementById("inputLink");
+  input.select();
+  document.execCommand("copy");
+  alert("Đã copy");
+}
+
+// INIT
+loadData();
+switchTab('easy');
+
+</script>
+
+</body>
+</html>
