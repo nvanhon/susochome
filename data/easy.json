@@ -4,53 +4,36 @@
     {"key":"nhong","name":"Nhộng ngủ / túi ngủ","desc":"Giúp bé ngủ sâu, bớt giật mình","need":true,"link":"https://s.shopee.vn/2qR2dlHyFk"},
     {"key":"rem_blackout","name":"Rèm blackout","desc":"Cản sáng tuyệt đối cho phòng ngủ","need":true,"link":"https://s.shopee.vn/9AL6BR3E6S"},
     {"key":"white_noise","name":"Máy white noise","desc":"Tiếng ồn trắng ổn định giấc ngủ","need":true,"link":"https://s.shopee.vn/2LUm2uHqV0"},
-    {"key":"camera","name":"Camera baby monitor","desc":"Quan sát bé an toàn từ xa","need":false,"link":"https://s.shopee.vn/AKX3ZiD5FS"},
-    {"key":"den_ngu","name":"Đèn ngủ ánh sáng đỏ/vàng","desc":"Giữ melatonin, không gây thức giấc","need":false,"link":"https://s.shopee.vn/7ppibAg57H"},
-    {"key":"nhiet_ke","name":"Nhiệt kế phòng","desc":"Kiểm soát nhiệt độ phòng lý tưởng","need":false,"link":"https://s.shopee.vn/9fHMmeRFx2"}
+    {"key":"camera","name":"Camera baby monitor","desc":"Quan sát bé an toàn từ xa","need":true,"link":"https://s.shopee.vn/AKX3ZiD5FS"},
+    {"key":"den_ngu","name":"Đèn ngủ ánh sáng đỏ/vàng","desc":"Bật đèn pha sữa mà không làm bé thức giấc","need":false,"link":"https://s.shopee.vn/7ppibAg57H"},
+    {"key":"nhiet_ke","name":"Nhiệt kế phòng","desc":"Để theo dõi nhiệt độ và độ ẩm trong phòng nè","need":false,"link":"https://s.shopee.vn/9fHMmeRFx2"}
   ],
 
   "🍼 Ăn": [
     {"key":"binh_sua","name":"Bình sữa + núm","desc":"Hỗ trợ bú tốt, vào khớp ngậm chuẩn. Su Sóc đang xài Hegen","need":true,"link":"https://s.shopee.vn/50VXEPEsru"},
     {"key":"may_ham","name":"Máy hâm sữa","desc":"Hâm sữa nhanh, tiện lợi ban đêm. Hãng Fatz bền, chất lượng","need":true,"link":"https://s.shopee.vn/AKX3aMHpAm"},
     {"key":"tiet_trung","name":"Máy tiệt trùng","desc":"Khử khuẩn, giữ vệ sinh bình sữa. 2in1 Hâm + tiệt trùng Fatz","need":true,"link":"https://s.shopee.vn/AKX3aMHpAm"},
-    {"key":"khan_sua","name":"Khăn sữa / khăn xô","desc":"Vệ sinh đa năng hằng ngày","need":true,"link":"https://s.shopee.vn/qfyGzbXgi"},
+    {"key":"khan_sua","name":"Khăn sữa / khăn xô","desc":"Vệ sinh, lau sữa, mồ hôi cho bé nè","need":true,"link":"https://s.shopee.vn/qfyGzbXgi"},
     {"key":"goi_chong_trao_nguoc","name":"Gối Chống trào ngược","desc":"Bé nằm bú cực nhanh, không sặc, không trớ. Su Sóc xài hàng ROTOTO Hàn Quốc siêu bền, và xịn. Đúng câu: Tiền nào của nấy luôn ấy","need":true,"link":"https://s.shopee.vn/9pan0UGhug"},
+	{"key":"nuoc_rua_binh_sua","name":"Nước rửa bình sữa","desc":"Vệ sinh bình sữa. Nhà Su Sóc đang dùng Wesser","need":true,"link":"https://s.shopee.vn/2qRCFx5ckY"},
     {"key":"may_hut","name":"Máy hút sữa","desc":"Hỗ trợ mẹ duy trì nguồn sữa. Khuyên mua hàng pass Medela nhé, vì giá máy mới khá đắt. Phụ kiện thì tham khảo ở đây.","need":false,"link":"https://s.shopee.vn/4LFqT21QF3"},
-    {"key":"tui_tru","name":"Túi trữ sữa","desc":"Bảo quản sữa mẹ an toàn","need":false,"link":"https://s.shopee.vn/4AwQGrYi6Y"}
+    {"key":"tui_tru","name":"Túi trữ sữa","desc":"Trữ sữa cấp đông để bảo quản mẹ nhé","need":false,"link":"https://s.shopee.vn/4AwQGrYi6Y"}
   ],
 
   "🧸 Chơi": [
     {"key":"flashcard","name":"Flashcard trắng đen","desc":"Kích thích thị giác 0–3 tháng","need":true,"link":"https://s.shopee.vn/10zOVW7Yrw"},
-    {"key":"treo_noi","name":"Treo nôi trắng đen","desc":"Phát triển khả năng tập trung","need":true,"link":"https://s.shopee.vn/6AhUfD0zI5"},
-    {"key":"sach_vai_den","name":"Sách vải trắng đen","desc":"Làm quen xúc giác và thị giác","need":true,"link":"https://s.shopee.vn/40d072UGTQ"},
-    {"key":"playmat","name":"Thảm chơi (playmat)","desc":"Không gian vận động an toàn","need":true,"link":""},
-    {"key":"gym","name":"Gym treo đồ chơi","desc":"Kích thích vận động tay chân","need":true,"link":""},
-    {"key":"guong","name":"Gương an toàn","desc":"Khám phá bản thân và tò mò","need":false,"link":""},
-    {"key":"treo_am_thanh","name":"Đồ treo có âm thanh","desc":"Kích thích thính giác nhẹ nhàng","need":false,"link":""},
-    {"key":"rattle","name":"Rattle (lắc tay)","desc":"Tập kỹ năng cầm nắm","need":false,"link":""},
-    {"key":"teether","name":"Teether (gặm nướu)","desc":"Giảm khó chịu khi mọc răng","need":false,"link":""},
-    {"key":"cause_effect","name":"Đồ chơi cause-effect","desc":"Phát triển tư duy hành động - kết quả","need":false,"link":""}
-  ],
-
-  "📚 Sách": [
-    {"key":"sach_vai","name":"Sách vải","desc":"Bền, an toàn cho bé 0-6 tháng","need":true,"link":""},
-    {"key":"sach_trang_den","name":"Sách trắng đen","desc":"Tối ưu thị giác giai đoạn đầu","need":true,"link":""},
-    {"key":"sach_texture","name":"Sách texture","desc":"Đa dạng chất liệu để chạm sờ","need":true,"link":""},
-    {"key":"sach_mau","name":"Sách tranh màu","desc":"Phát triển trí não 6 tháng+","need":false,"link":""},
-    {"key":"sach_tuong_tac","name":"Sách tương tác","desc":"Tăng hứng thú qua lật mở","need":false,"link":""}
+    {"key":"treo_noi","name":"Treo nôi trắng đen","desc":"Phát triển khả năng tập trung. Bé Su Sóc rất mê nhìn mấy cái này","need":true,"link":"https://s.shopee.vn/6AhUfD0zI5"},
+    {"key":"sach_vai_den","name":"Sách vải trắng đen","desc":"Làm quen xúc giác và thị giác. Bé Su Sóc thích sách vải này lắm","need":true,"link":"https://s.shopee.vn/40d072UGTQ"},
+	{"key":"playmat","name":"Thảm chơi cho bé","desc":"Không gian vận động an toàn cho bé nhé. Nhất là khi bé tập bò, lật. Không có là u đầu đấy","need":false,"link":"https://s.shopee.vn/3LNSrNQG5E"},
+    {"key":"treo_am_thanh","name":"Đồ treo có âm thanh","desc":"Kích thích thính giác, thị giác nhẹ nhàng. Có bộ này đẹp nè","need":false,"link":"https://s.shopee.vn/809IQNdRZY"},
+    {"key":"rattle","name":"Lắc tay, xúc xắc, gặm nứu","desc":"Tập kỹ năng cầm nắm. Giảm khó chịu khi mọc răng. Bộ này xịn giá tốt nè. Su Sóc dùng bộ khác cũng khá xịn, nhưng giờ không thấy bán nữa","need":false,"link":"https://s.shopee.vn/qg7tkgTV0"}
   ],
 
   "🛁 Sinh hoạt": [
-    {"key":"bon_tam","name":"Bồn tắm","desc":"Thiết kế an toàn cho trẻ sơ sinh","need":true,"link":""},
-    {"key":"khan_tam","name":"Khăn tắm mềm","desc":"Thấm hút tốt, dịu nhẹ da bé","need":true,"link":""},
-    {"key":"sua_tam","name":"Sữa tắm dịu nhẹ","desc":"Làm sạch không gây kích ứng","need":true,"link":""},
-    {"key":"bim","name":"Tã / bỉm","desc":"Thấm hút cao, khô thoáng mỗi ngày","need":true,"link":""},
-    {"key":"kem_ham","name":"Kem chống hăm","desc":"Bảo vệ và phục hồi da nhạy cảm","need":true,"link":""}
-  ],
-
-  "🧩 Hỗ trợ EASY": [
-    {"key":"app_easy","name":"App theo dõi EASY","desc":"Số hóa lịch sinh hoạt ăn ngủ","need":false,"link":""},
-    {"key":"dong_ho","name":"Đồng hồ / nhắc giờ","desc":"Giữ khung giờ sinh hoạt ổn định","need":false,"link":""},
-    {"key":"routine","name":"Routine cố định","desc":"Xây dựng nếp sống khoa học cho bé","need":false,"link":""}
+    {"key":"bon_tam","name":"Bồn tắm, ghế chống trượt","desc":"Thau tắm kèm tựa chống trựa. Hàng nhựa cao cấp, giá tốt nè","need":true,"link":"https://s.shopee.vn/4VZQH3pIIR"},
+    {"key":"khan_tam","name":"Khăn tắm mềm, Khăn xô","desc":"Khăn Tắm Xô Nhăn 6 Lớp. Bền giá tốt. Lụm","need":true,"link":"https://s.shopee.vn/7Ktbeb7xoe"},
+    {"key":"sua_tam","name":"Sữa tắm dịu nhẹ","desc":"Nhà Su Sóc trung thành với Lactacyd 2 đời EASY rồi nè","need":true,"link":"https://s.shopee.vn/LjrJxbpDd"},
+    {"key":"bim","name":"Tã / bỉm","desc":"Nhà Su Sóc xài Moony 4 tháng đầu. Sau đó chuyển sang xài Tã Takato mềm, nhiều miếng hơn, giá tốt hơn ạ","need":true,"link":"https://s.shopee.vn/3qJjUfk1eo"},
+    {"key":"kem_ham","name":"Kem chống hăm","desc":"Hàng Đức, giá tốt, đại đa số các mẹ tin dùng nè","need":true,"link":"https://s.shopee.vn/9fHWRTYrQ3"}
   ]
 }
