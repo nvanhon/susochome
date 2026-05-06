@@ -11,7 +11,6 @@ body { background: #fafafa; }
 .tab { display: none; }
 .tab.active { display: block; }
 
-/* SECTION COLORS */
 .section-sleep { background: #fed7aa; }
 .section-eat { background: #bfdbfe; }
 .section-play { background: #bbf7d0; }
@@ -36,31 +35,37 @@ body { background: #fafafa; }
 
 <body class="p-4 text-gray-800 font-sans max-w-xl mx-auto">
 
-<h1 class="text-2xl font-bold mb-4">🏡 susochome</h1>
+<h1 class="text-2xl font-bold mb-2">🏡 susochome</h1>
+<p class="text-sm text-gray-500 mb-4">
+Các món Su Sóc đã dùng hoặc chọn lọc kỹ. Link đang cập nhật dần 👇
+</p>
 
 <!-- MENU -->
 <div class="flex gap-2 mb-5">
   <button id="btn-easy" onclick="switchTab('easy')" class="flex-1 py-2 rounded-lg">Đồ EASY</button>
   <button id="btn-deal" onclick="switchTab('deal')" class="flex-1 py-2 rounded-lg">Flash sale</button>
-  <button id="btn-tool" onclick="switchTab('tool')" class="flex-1 py-2 rounded-lg">Chuyển link</button>
+  <button id="btn-quick" onclick="switchTab('quick')" class="flex-1 py-2 rounded-lg">⚡ Deal nhanh</button>
 </div>
 
 <!-- TABS -->
-<div id="easy" class="tab active"></div>
-<div id="deal" class="tab"></div>
-
-<div id="tool" class="tab">
-  <h2 class="text-lg font-semibold mb-3">🔗 Chuyển đổi link</h2>
-  <input id="inputLink" class="w-full p-3 border rounded-lg mb-3" placeholder="Dán link Shopee..." />
-  <button onclick="copyLink()" class="bg-purple-400 text-white w-full py-2 rounded-lg">Copy link</button>
-</div>
+<div id="easy" class="tab active">Đang tải...</div>
+<div id="deal" class="tab">Đang tải...</div>
+<div id="quick" class="tab">Đang tải...</div>
 
 <script>
 
+// ================= CONFIG =================
+const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTW0wVa-qpkgSESYAAZdEIcpsHepYdr4SUdW0xzmAoi5-g9jTmIU5D2eVl364AYOtGkJcMxakoU3u1S/pub?gid=0&single=true&output=csv";
+
+// ================= DATA =================
 let easyData = {};
 let dealData = [];
 
-// ================= LOAD DATA =================
+// ================= INIT =================
+loadData();
+switchTab('easy');
+
+// ================= LOAD =================
 async function loadData(){
   try {
     const easyRes = await fetch("./data/easy.json");
@@ -71,13 +76,14 @@ async function loadData(){
 
     renderEasy();
     renderDeal();
+    loadQuick();
 
   } catch (err) {
     console.error("Lỗi load JSON:", err);
   }
 }
 
-// ================= SECTION COLOR =================
+// ================= UTILS =================
 function getSectionClass(name){
   if(name.includes("Ngủ")) return "section-sleep";
   if(name.includes("Ăn")) return "section-eat";
@@ -87,14 +93,38 @@ function getSectionClass(name){
   return "section-support";
 }
 
-// ================= RENDER EASY =================
+function isRecommended(desc){
+  if(!desc) return false;
+  return desc.toLowerCase().includes("su sóc") ||
+         desc.toLowerCase().includes("đang xài");
+}
+
+function getCTA(item){
+  if(item.link) return item.need ? "Nên mua ngay" : "Xem chi tiết";
+  return item.need ? "Nên chuẩn bị" : "Tham khảo";
+}
+
+// ================= EASY =================
 function renderEasy(){
   const container = document.getElementById("easy");
   container.innerHTML = "";
 
   Object.keys(easyData).forEach(section => {
 
-    const items = easyData[section];
+    let items = easyData[section];
+    if(!Array.isArray(items)) return;
+
+    items = items.sort((a,b)=>{
+      const score = (item)=>{
+        let s = 0;
+        if(item.need) s += 2;
+        if(item.link) s += 1;
+        if(isRecommended(item.desc)) s += 3;
+        return s;
+      };
+      return score(b) - score(a);
+    });
+
     const secClass = getSectionClass(section);
 
     let html = `
@@ -103,8 +133,15 @@ function renderEasy(){
     `;
 
     items.forEach(item=>{
+      const highlight = isRecommended(item.desc);
+
       html += `
-      <div class="bg-white p-4 rounded-xl shadow mb-3 card">
+      <div class="bg-white p-4 rounded-xl shadow mb-3 card
+        ${highlight ? 'border-2 border-orange-400' : ''}">
+
+        ${highlight ? `<div class="text-xs text-orange-500 font-semibold mb-1">⭐ Đang dùng thực tế</div>` : ''}
+
+        ${!item.link ? `<div class="text-xs text-gray-400 mb-1">⏳ Đang cập nhật link</div>` : ''}
 
         <div class="flex justify-between items-center mb-1">
           <b>${item.name}</b>
@@ -113,13 +150,18 @@ function renderEasy(){
           </span>
         </div>
 
-        <p class="text-sm text-gray-500 mb-2">${item.desc}</p>
+        <p class="text-sm text-gray-500 mb-2">👉 ${item.desc || ""}</p>
 
-        <a href="${item.link || '#'}"
-           target="_blank"
-           class="block bg-orange-400 text-white text-center py-2 rounded-lg">
-           ${item.link ? "Xem trên Shopee" : "Chưa gắn link"}
-        </a>
+        ${item.link 
+          ? `<a href="${item.link}" target="_blank"
+                onclick="trackClick('${item.key}')"
+                class="block bg-orange-400 text-white text-center py-2 rounded-lg">
+                ${getCTA(item)}
+             </a>`
+          : `<div class="block bg-gray-100 text-gray-500 text-center py-2 rounded-lg">
+                ${getCTA(item)}
+             </div>`
+        }
 
       </div>
       `;
@@ -130,7 +172,7 @@ function renderEasy(){
   });
 }
 
-// ================= RENDER DEAL =================
+// ================= DEAL =================
 function renderDeal(){
   const container = document.getElementById("deal");
 
@@ -156,40 +198,98 @@ function renderDeal(){
   container.innerHTML = html;
 }
 
+// ================= QUICK =================
+async function loadQuick(){
+  try{
+    const res = await fetch(SHEET_URL);
+    const text = await res.text();
+
+    const rows = text.split("\n").slice(1);
+
+    const data = rows.map(r=>{
+      const [name, link] = r.split(",");
+      return { name, link };
+    }).filter(i => i.link);
+
+    renderQuick(data);
+
+  }catch(e){
+    console.error("Lỗi QUICK:", e);
+  }
+}
+
+function renderQuick(data){
+  const container = document.getElementById("quick");
+
+  let html = `<h2 class="text-lg font-semibold mb-3">⚡ Deal nhanh</h2>`;
+
+  if(!data.length){
+    html += `<p class="text-gray-400">Chưa có deal</p>`;
+    container.innerHTML = html;
+    return;
+  }
+
+  data.reverse().forEach((item, index)=>{
+    
+    // 🎯 background logic
+    let bg = "";
+    if(index === 0){
+      bg = "bg-yellow-100 border-2 border-yellow-300";
+    } else {
+      bg = index % 2 === 0 ? "bg-white" : "bg-green-50";
+    }
+
+    html += `
+    <div class="${bg} p-3 rounded-xl shadow mb-3 card">
+      
+      ${index === 0 ? `
+        <div class="text-xs text-yellow-700 font-semibold mb-1">
+          🔥 Deal mới nhất
+        </div>
+      ` : ''}
+
+      <p class="font-semibold mb-2">${item.name}</p>
+
+      <a href="${item.link}" target="_blank"
+         class="block bg-green-400 text-white text-center py-2 rounded-lg">
+         Xem ngay
+      </a>
+
+    </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
 // ================= TAB =================
 function switchTab(tab){
 
-  // content
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.getElementById(tab).classList.add('active');
 
-  // reset button
-  ['easy','deal','tool'].forEach(t=>{
+  const colors = {
+    easy: '#fb923c',
+    deal: '#f472b6',
+    quick: '#34d399'
+  };
+
+  ['easy','deal','quick'].forEach(t=>{
     const btn = document.getElementById('btn-' + t);
-    btn.classList.add('menu-inactive');
     btn.style.background = '#e5e7eb';
+    btn.classList.add('menu-inactive');
   });
 
-  // active button
   const active = document.getElementById('btn-' + tab);
+  active.style.background = colors[tab];
   active.classList.remove('menu-inactive');
-
-  if(tab==='easy') active.style.background='#fb923c';
-  if(tab==='deal') active.style.background='#f472b6';
-  if(tab==='tool') active.style.background='#a78bfa';
 }
 
-// ================= TOOL =================
-function copyLink(){
-  const input = document.getElementById("inputLink");
-  input.select();
-  document.execCommand("copy");
-  alert("Đã copy");
+// ================= TRACK =================
+function trackClick(key){
+  console.log("Click:", key);
+  localStorage.setItem("last_click", key);
 }
-
-// INIT
-loadData();
-switchTab('easy');
 
 </script>
 

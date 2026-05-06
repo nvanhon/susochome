@@ -1,62 +1,56 @@
 {
   "😴 Ngủ": [
-    {"key":"noi","name":"Cũi / nôi","desc":"Không ngủ chung giường","need":true,"link":"https://s.shopee.vn/901fVCCmjT"},
-    {"key":"nhong","name":"Nhộng ngủ / túi ngủ","desc":"Giảm giật mình, ngủ sâu hơn","need":true,"link":"https://s.shopee.vn/40czYTX68m"},
-    {"key":"rem_blackout","name":"Rèm blackout","desc":"Phòng tối hoàn toàn","need":true,"link":"https://s.shopee.vn/4AwPlBbUNS"},
-    {"key":"white_noise","name":"Máy white noise","desc":"Ổn định giấc ngủ","need":true,"link":"https://s.shopee.vn/6pxAwQ7zan"},
-
-    {"key":"camera","name":"Camera baby monitor","desc":"Theo dõi bé từ xa","need":false,"link":"https://s.shopee.vn/1VvebXRL2X"},
-    {"key":"den_ngu","name":"Đèn ngủ ánh sáng đỏ/vàng","desc":"Không phá melatonin","need":false,"link":"https://s.shopee.vn/2BBLPNOdwE"},
-    {"key":"nhiet_ke","name":"Nhiệt kế phòng","desc":"Giữ 26–28°C","need":false,"link":"https://s.shopee.vn/8098MH0T3A"}
+    {"key":"noi","name":"Cũi / nôi","desc":"Rèn bé ngủ riêng, tự lập","need":true,"link":"https://s.shopee.vn/4qC71MrHQO"},
+    {"key":"nhong","name":"Nhộng ngủ / túi ngủ","desc":"Giúp bé ngủ sâu, bớt giật mình","need":true,"link":"https://s.shopee.vn/2qR2dlHyFk"},
+    {"key":"rem_blackout","name":"Rèm blackout","desc":"Cản sáng tuyệt đối cho phòng ngủ","need":true,"link":"https://s.shopee.vn/9AL6BR3E6S"},
+    {"key":"white_noise","name":"Máy white noise","desc":"Tiếng ồn trắng ổn định giấc ngủ","need":true,"link":"https://s.shopee.vn/2LUm2uHqV0"},
+    {"key":"camera","name":"Camera baby monitor","desc":"Quan sát bé an toàn từ xa","need":false,"link":"https://s.shopee.vn/AKX3ZiD5FS"},
+    {"key":"den_ngu","name":"Đèn ngủ ánh sáng đỏ/vàng","desc":"Giữ melatonin, không gây thức giấc","need":false,"link":"https://s.shopee.vn/7ppibAg57H"},
+    {"key":"nhiet_ke","name":"Nhiệt kế phòng","desc":"Kiểm soát nhiệt độ phòng lý tưởng","need":false,"link":"https://s.shopee.vn/9fHMmeRFx2"}
   ],
 
   "🍼 Ăn": [
-    {"key":"binh_sua","name":"Bình sữa + núm","desc":"Chọn đúng size cho bé","need":true,"link":""},
-    {"key":"may_ham","name":"Máy hâm sữa","desc":"Cứu đêm cực mạnh","need":true,"link":""},
-    {"key":"tiet_trung","name":"Máy tiệt trùng","desc":"Giữ vệ sinh bình","need":true,"link":""},
-    {"key":"khan_sua","name":"Khăn sữa / khăn xô","desc":"Dùng rất nhiều mỗi ngày","need":true,"link":""},
-	{"key":"goi_chong_trao_nguoc","name":"Gối Chống trào ngược","desc":"Bé nằm bú không bị ọc, trào ngược","need":true,"link":""},
-
-    {"key":"may_hut","name":"Máy hút sữa","desc":"Dành cho mẹ hút sữa","need":false,"link":""},
-    {"key":"tui_tru","name":"Túi trữ sữa","desc":"Bảo quản sữa","need":false,"link":""},
-    {"key":"binh_tru","name":"Bình trữ sữa","desc":"Trữ sữa tiện lợi","need":false,"link":""}
+    {"key":"binh_sua","name":"Bình sữa + núm","desc":"Hỗ trợ bú tốt, vào khớp ngậm chuẩn. Su Sóc đang xài Hegen","need":true,"link":"https://s.shopee.vn/50VXEPEsru"},
+    {"key":"may_ham","name":"Máy hâm sữa","desc":"Hâm sữa nhanh, tiện lợi ban đêm. Hãng Fatz bền, chất lượng","need":true,"link":"https://s.shopee.vn/AKX3aMHpAm"},
+    {"key":"tiet_trung","name":"Máy tiệt trùng","desc":"Khử khuẩn, giữ vệ sinh bình sữa. 2in1 Hâm + tiệt trùng Fatz","need":true,"link":"https://s.shopee.vn/AKX3aMHpAm"},
+    {"key":"khan_sua","name":"Khăn sữa / khăn xô","desc":"Vệ sinh đa năng hằng ngày","need":true,"link":"https://s.shopee.vn/qfyGzbXgi"},
+    {"key":"goi_chong_trao_nguoc","name":"Gối Chống trào ngược","desc":"Bé nằm bú cực nhanh, không sặc, không trớ. Su Sóc xài hàng ROTOTO Hàn Quốc siêu bền, và xịn. Đúng câu: Tiền nào của nấy luôn ấy","need":true,"link":"https://s.shopee.vn/9pan0UGhug"},
+    {"key":"may_hut","name":"Máy hút sữa","desc":"Hỗ trợ mẹ duy trì nguồn sữa. Khuyên mua hàng pass Medela nhé, vì giá máy mới khá đắt. Phụ kiện thì tham khảo ở đây.","need":false,"link":"https://s.shopee.vn/4LFqT21QF3"},
+    {"key":"tui_tru","name":"Túi trữ sữa","desc":"Bảo quản sữa mẹ an toàn","need":false,"link":"https://s.shopee.vn/4AwQGrYi6Y"}
   ],
 
   "🧸 Chơi": [
-    {"key":"flashcard","name":"Flashcard trắng đen","desc":"0–3 tháng","need":true,"link":""},
-    {"key":"treo_noi","name":"Treo nôi trắng đen","desc":"Kích thích thị giác","need":true,"link":""},
-    {"key":"sach_vai_den","name":"Sách vải trắng đen","desc":"Sờ + nhìn","need":true,"link":""},
-
-    {"key":"playmat","name":"Thảm chơi (playmat)","desc":"3–6 tháng","need":true,"link":""},
-    {"key":"gym","name":"Gym treo đồ chơi","desc":"Bé tập vận động","need":true,"link":""},
-    {"key":"guong","name":"Gương an toàn","desc":"Bé thích nhìn","need":false,"link":""},
-    {"key":"treo_am_thanh","name":"Đồ treo có âm thanh","desc":"Kích thích nhẹ","need":false,"link":""},
-
-    {"key":"rattle","name":"Rattle (lắc tay)","desc":"Cầm nắm","need":false,"link":""},
-    {"key":"teether","name":"Teether (gặm nướu)","desc":"Khi mọc răng","need":false,"link":""},
-    {"key":"cause_effect","name":"Đồ chơi cause-effect","desc":"Bấm → có âm thanh","need":false,"link":""}
+    {"key":"flashcard","name":"Flashcard trắng đen","desc":"Kích thích thị giác 0–3 tháng","need":true,"link":"https://s.shopee.vn/10zOVW7Yrw"},
+    {"key":"treo_noi","name":"Treo nôi trắng đen","desc":"Phát triển khả năng tập trung","need":true,"link":"https://s.shopee.vn/6AhUfD0zI5"},
+    {"key":"sach_vai_den","name":"Sách vải trắng đen","desc":"Làm quen xúc giác và thị giác","need":true,"link":"https://s.shopee.vn/40d072UGTQ"},
+    {"key":"playmat","name":"Thảm chơi (playmat)","desc":"Không gian vận động an toàn","need":true,"link":""},
+    {"key":"gym","name":"Gym treo đồ chơi","desc":"Kích thích vận động tay chân","need":true,"link":""},
+    {"key":"guong","name":"Gương an toàn","desc":"Khám phá bản thân và tò mò","need":false,"link":""},
+    {"key":"treo_am_thanh","name":"Đồ treo có âm thanh","desc":"Kích thích thính giác nhẹ nhàng","need":false,"link":""},
+    {"key":"rattle","name":"Rattle (lắc tay)","desc":"Tập kỹ năng cầm nắm","need":false,"link":""},
+    {"key":"teether","name":"Teether (gặm nướu)","desc":"Giảm khó chịu khi mọc răng","need":false,"link":""},
+    {"key":"cause_effect","name":"Đồ chơi cause-effect","desc":"Phát triển tư duy hành động - kết quả","need":false,"link":""}
   ],
 
   "📚 Sách": [
-    {"key":"sach_vai","name":"Sách vải","desc":"0–6 tháng","need":true,"link":""},
-    {"key":"sach_trang_den","name":"Sách trắng đen","desc":"Kích thích thị giác","need":true,"link":""},
-    {"key":"sach_texture","name":"Sách texture","desc":"Có thể sờ","need":true,"link":""},
-
-    {"key":"sach_mau","name":"Sách tranh màu","desc":"6 tháng+","need":false,"link":""},
-    {"key":"sach_tuong_tac","name":"Sách tương tác","desc":"Lật mở","need":false,"link":""}
+    {"key":"sach_vai","name":"Sách vải","desc":"Bền, an toàn cho bé 0-6 tháng","need":true,"link":""},
+    {"key":"sach_trang_den","name":"Sách trắng đen","desc":"Tối ưu thị giác giai đoạn đầu","need":true,"link":""},
+    {"key":"sach_texture","name":"Sách texture","desc":"Đa dạng chất liệu để chạm sờ","need":true,"link":""},
+    {"key":"sach_mau","name":"Sách tranh màu","desc":"Phát triển trí não 6 tháng+","need":false,"link":""},
+    {"key":"sach_tuong_tac","name":"Sách tương tác","desc":"Tăng hứng thú qua lật mở","need":false,"link":""}
   ],
 
   "🛁 Sinh hoạt": [
-    {"key":"bon_tam","name":"Bồn tắm","desc":"Tắm cho bé","need":true,"link":""},
-    {"key":"khan_tam","name":"Khăn tắm mềm","desc":"Cho bé","need":true,"link":""},
-    {"key":"sua_tam","name":"Sữa tắm dịu nhẹ","desc":"Không kích ứng","need":true,"link":""},
-    {"key":"bim","name":"Tã / bỉm","desc":"Thiết yếu mỗi ngày","need":true,"link":""},
-    {"key":"kem_ham","name":"Kem chống hăm","desc":"Tránh hăm da","need":true,"link":""}
+    {"key":"bon_tam","name":"Bồn tắm","desc":"Thiết kế an toàn cho trẻ sơ sinh","need":true,"link":""},
+    {"key":"khan_tam","name":"Khăn tắm mềm","desc":"Thấm hút tốt, dịu nhẹ da bé","need":true,"link":""},
+    {"key":"sua_tam","name":"Sữa tắm dịu nhẹ","desc":"Làm sạch không gây kích ứng","need":true,"link":""},
+    {"key":"bim","name":"Tã / bỉm","desc":"Thấm hút cao, khô thoáng mỗi ngày","need":true,"link":""},
+    {"key":"kem_ham","name":"Kem chống hăm","desc":"Bảo vệ và phục hồi da nhạy cảm","need":true,"link":""}
   ],
 
   "🧩 Hỗ trợ EASY": [
-    {"key":"app_easy","name":"App theo dõi EASY","desc":"Ghi log ăn ngủ","need":false,"link":""},
-    {"key":"dong_ho","name":"Đồng hồ / nhắc giờ","desc":"Giữ lịch ổn định","need":false,"link":""},
-    {"key":"routine","name":"Routine cố định","desc":"Quan trọng hơn mọi món đồ","need":false,"link":""}
+    {"key":"app_easy","name":"App theo dõi EASY","desc":"Số hóa lịch sinh hoạt ăn ngủ","need":false,"link":""},
+    {"key":"dong_ho","name":"Đồng hồ / nhắc giờ","desc":"Giữ khung giờ sinh hoạt ổn định","need":false,"link":""},
+    {"key":"routine","name":"Routine cố định","desc":"Xây dựng nếp sống khoa học cho bé","need":false,"link":""}
   ]
 }
