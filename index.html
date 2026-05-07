@@ -3,48 +3,123 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
-body { background: #fafafa; }
 
-.tab { display: none; }
-.tab.active { display: block; }
+body{
+  background:#fafafa;
+}
 
-.section-sleep { background: #fed7aa; }
-.section-eat { background: #bfdbfe; }
-.section-play { background: #bbf7d0; }
-.section-book { background: #fef3c7; }
-.section-care { background: #fde2e4; }
-.section-support { background: #e9d5ff; }
+.tab{
+  display:none;
+}
 
-.badge-need { background:#fee2e2; color:#dc2626; }
-.badge-optional { background:#e5e7eb; color:#6b7280; }
+.tab.active{
+  display:block;
+}
 
-.menu-inactive {
+.section-sleep { background:#fed7aa; }
+.section-eat { background:#bfdbfe; }
+.section-play { background:#bbf7d0; }
+.section-book { background:#fef3c7; }
+.section-care { background:#fde2e4; }
+.section-support { background:#e9d5ff; }
+
+.badge-need{
+  background:#fee2e2;
+  color:#dc2626;
+}
+
+.badge-optional{
   background:#e5e7eb;
   color:#6b7280;
 }
 
-.card:hover {
-  transform: scale(1.01);
-  transition: 0.2s;
+.menu-inactive{
+  background:#e5e7eb;
+  color:#6b7280;
 }
+
+.card:hover{
+  transform:scale(1.01);
+  transition:0.2s;
+}
+
+/* ✅ COPY BUTTON NHỎ GỌN HƠN */
+.copy-btn{
+
+  height:44px;
+
+  padding:0 12px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:13px;
+  font-weight:500;
+
+  border-radius:12px;
+
+  background:#f3f4f6;
+  border:1px solid #d1d5db;
+
+  color:#374151;
+
+  white-space:nowrap;
+
+  transition:0.2s;
+}
+
+.copy-btn:hover{
+  background:#e5e7eb;
+}
+
 </style>
 </head>
 
 <body class="p-4 text-gray-800 font-sans max-w-xl mx-auto">
 
-<h1 class="text-2xl font-bold mb-2">🏡 susochome</h1>
+<h1 class="text-2xl font-bold mb-2">
+🏡 susochome
+</h1>
+
 <p class="text-sm text-gray-500 mb-4">
-Các món Su Sóc đã dùng hoặc chọn lọc kỹ. Link đang cập nhật dần 👇
+Các món Su Sóc đã dùng hoặc chọn lọc kỹ 👇
 </p>
 
 <!-- MENU -->
 <div class="flex gap-2 mb-5">
-  <button id="btn-easy" onclick="switchTab('easy')" class="flex-1 py-2 rounded-lg">Đồ EASY</button>
-  <button id="btn-deal" onclick="switchTab('deal')" class="flex-1 py-2 rounded-lg">Flash sale</button>
-  <button id="btn-quick" onclick="switchTab('quick')" class="flex-1 py-2 rounded-lg">⚡ Deal nhanh</button>
+
+  <button
+    id="btn-easy"
+    onclick="switchTab('easy')"
+    class="flex-1 py-2 rounded-lg">
+
+    Đồ EASY
+
+  </button>
+
+  <button
+    id="btn-deal"
+    onclick="switchTab('deal')"
+    class="flex-1 py-2 rounded-lg">
+
+    Flash sale
+
+  </button>
+
+  <button
+    id="btn-quick"
+    onclick="switchTab('quick')"
+    class="flex-1 py-2 rounded-lg">
+
+    ⚡ Deal nhanh
+
+  </button>
+
 </div>
 
 <!-- TABS -->
@@ -55,240 +130,489 @@ Các món Su Sóc đã dùng hoặc chọn lọc kỹ. Link đang cập nhật d
 <script>
 
 // ================= CONFIG =================
-const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTW0wVa-qpkgSESYAAZdEIcpsHepYdr4SUdW0xzmAoi5-g9jTmIU5D2eVl364AYOtGkJcMxakoU3u1S/pub?gid=0&single=true&output=csv";
 
-// ================= DATA =================
-let easyData = {};
-let dealData = [];
+const EASY_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTW0wVa-qpkgSESYAAZdEIcpsHepYdr4SUdW0xzmAoi5-g9jTmIU5D2eVl364AYOtGkJcMxakoU3u1S/pub?gid=174667099&single=true&output=csv";
+
+const FLASH_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTW0wVa-qpkgSESYAAZdEIcpsHepYdr4SUdW0xzmAoi5-g9jTmIU5D2eVl364AYOtGkJcMxakoU3u1S/pub?gid=1384390706&single=true&output=csv";
+
+const QUICK_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTW0wVa-qpkgSESYAAZdEIcpsHepYdr4SUdW0xzmAoi5-g9jTmIU5D2eVl364AYOtGkJcMxakoU3u1S/pub?gid=0&single=true&output=csv";
 
 // ================= INIT =================
-loadData();
-switchTab('easy');
 
-// ================= LOAD =================
-async function loadData(){
-  try {
-    const easyRes = await fetch("./data/easy.json");
-    easyData = await easyRes.json();
+loadAll();
+switchTab("easy");
 
-    const dealRes = await fetch("./data/flashsale.json");
-    dealData = await dealRes.json();
+// ================= CSV =================
 
-    renderEasy();
-    renderDeal();
-    loadQuick();
+function parseCSVLine(line){
 
-  } catch (err) {
-    console.error("Lỗi load JSON:", err);
+  const result = [];
+  let current = "";
+  let insideQuotes = false;
+
+  for(let i=0;i<line.length;i++){
+
+    const char = line[i];
+
+    if(char === '"'){
+      insideQuotes = !insideQuotes;
+    }
+
+    else if(char === "," && !insideQuotes){
+      result.push(current);
+      current = "";
+    }
+
+    else{
+      current += char;
+    }
   }
+
+  result.push(current);
+
+  return result.map(v=>v.replace(/^"|"$/g,""));
 }
 
-// ================= UTILS =================
+// ================= LOAD =================
+
+async function loadAll(){
+
+  await Promise.all([
+    loadEasy(),
+    loadDeal(),
+    loadQuick()
+  ]);
+
+}
+
+// ================= EASY =================
+
+async function loadEasy(){
+
+  try{
+
+    const res = await fetch(EASY_URL);
+    const text = await res.text();
+
+    const rows = text.split("\n").slice(1);
+
+    const grouped = {};
+
+    rows.forEach(row=>{
+
+      if(!row.trim()) return;
+
+      const cols = parseCSVLine(row);
+
+      const section = cols[0];
+      const key = cols[1];
+      const name = cols[2];
+      const desc = cols[3];
+      const need = cols[4] === "TRUE";
+      const link = cols[5];
+
+      if(!grouped[section]){
+        grouped[section] = [];
+      }
+
+      grouped[section].push({
+        key,
+        name,
+        desc,
+        need,
+        link
+      });
+
+    });
+
+    renderEasy(grouped);
+
+  }catch(e){
+    console.error(e);
+  }
+
+}
+
+// ================= DEAL =================
+
+async function loadDeal(){
+
+  try{
+
+    const res = await fetch(FLASH_URL);
+    const text = await res.text();
+
+    const rows = text.split("\n").slice(1);
+
+    const data = [];
+
+    rows.forEach(row=>{
+
+      if(!row.trim()) return;
+
+      const cols = parseCSVLine(row);
+
+      data.push({
+        title: cols[0],
+        price: cols[1],
+        tag: cols[2],
+        link: cols[3]
+      });
+
+    });
+
+    renderDeal(data);
+
+  }catch(e){
+    console.error(e);
+  }
+
+}
+
+// ================= QUICK =================
+
+async function loadQuick(){
+
+  try{
+
+    const res = await fetch(QUICK_URL);
+    const text = await res.text();
+
+    const rows = text.split("\n").slice(1);
+
+    const data = [];
+
+    rows.forEach(row=>{
+
+      if(!row.trim()) return;
+
+      const cols = parseCSVLine(row);
+
+      data.push({
+        name: cols[0],
+        link: cols[1]
+      });
+
+    });
+
+    renderQuick(data);
+
+  }catch(e){
+    console.error(e);
+  }
+
+}
+
+// ================= UTIL =================
+
 function getSectionClass(name){
+
   if(name.includes("Ngủ")) return "section-sleep";
   if(name.includes("Ăn")) return "section-eat";
   if(name.includes("Chơi")) return "section-play";
   if(name.includes("Sách")) return "section-book";
   if(name.includes("Sinh")) return "section-care";
+
   return "section-support";
 }
 
 function isRecommended(desc){
+
   if(!desc) return false;
-  return desc.toLowerCase().includes("su sóc") ||
-         desc.toLowerCase().includes("đang xài");
+
+  const text = desc.toLowerCase();
+
+  return text.includes("su sóc")
+      || text.includes("đang xài");
+
 }
 
 function getCTA(item){
-  if(item.link) return item.need ? "Nên mua ngay" : "Xem chi tiết";
-  return item.need ? "Nên chuẩn bị" : "Tham khảo";
+
+  if(item.need){
+    return "Xem ngay";
+  }
+
+  return "Xem chi tiết";
 }
 
-// ================= EASY =================
-function renderEasy(){
+// ================= RENDER EASY =================
+
+function renderEasy(data){
+
   const container = document.getElementById("easy");
+
   container.innerHTML = "";
 
-  Object.keys(easyData).forEach(section => {
-
-    let items = easyData[section];
-    if(!Array.isArray(items)) return;
-
-    items = items.sort((a,b)=>{
-      const score = (item)=>{
-        let s = 0;
-        if(item.need) s += 2;
-        if(item.link) s += 1;
-        if(isRecommended(item.desc)) s += 3;
-        return s;
-      };
-      return score(b) - score(a);
-    });
+  Object.keys(data).forEach(section=>{
 
     const secClass = getSectionClass(section);
 
     let html = `
-    <div class="${secClass} p-4 rounded-2xl mb-6">
-      <h2 class="font-semibold mb-3">${section}</h2>
+      <div class="${secClass} p-4 rounded-2xl mb-6">
+
+      <h2 class="font-semibold mb-3">
+        ${section}
+      </h2>
     `;
 
-    items.forEach(item=>{
+    data[section].forEach(item=>{
+
       const highlight = isRecommended(item.desc);
 
       html += `
+
       <div class="bg-white p-4 rounded-xl shadow mb-3 card
         ${highlight ? 'border-2 border-orange-400' : ''}">
 
-        ${highlight ? `<div class="text-xs text-orange-500 font-semibold mb-1">⭐ Đang dùng thực tế</div>` : ''}
-
-        ${!item.link ? `<div class="text-xs text-gray-400 mb-1">⏳ Đang cập nhật link</div>` : ''}
-
-        <div class="flex justify-between items-center mb-1">
-          <b>${item.name}</b>
-          <span class="${item.need ? 'badge-need' : 'badge-optional'} text-xs px-2 py-1 rounded">
-            ${item.need ? 'Cần cho EASY' : 'Không bắt buộc'}
-          </span>
-        </div>
-
-        <p class="text-sm text-gray-500 mb-2">👉 ${item.desc || ""}</p>
-
-        ${item.link 
-          ? `<a href="${item.link}" target="_blank"
-                onclick="trackClick('${item.key}')"
-                class="block bg-orange-400 text-white text-center py-2 rounded-lg">
-                ${getCTA(item)}
-             </a>`
-          : `<div class="block bg-gray-100 text-gray-500 text-center py-2 rounded-lg">
-                ${getCTA(item)}
-             </div>`
+        ${highlight
+          ? `
+            <div class="text-xs text-orange-500 font-semibold mb-1">
+              ⭐ Đang dùng thực tế
+            </div>
+          `
+          : ''
         }
 
+        <div class="flex justify-between items-center mb-2">
+
+          <b>${item.name}</b>
+
+          <span class="${
+            item.need
+              ? 'badge-need'
+              : 'badge-optional'
+          } text-xs px-2 py-1 rounded">
+
+            ${
+              item.need
+                ? 'Cần cho EASY'
+                : 'Không bắt buộc'
+            }
+
+          </span>
+
+        </div>
+
+        <p class="text-sm text-gray-500 mb-3">
+          👉 ${item.desc || ""}
+        </p>
+
+        <div class="flex gap-2">
+
+          <a href="${item.link}"
+             target="_blank"
+             class="flex-1 block bg-orange-400 text-white text-center py-2 rounded-lg">
+
+             ${getCTA(item)}
+
+          </a>
+
+          <button
+            onclick="copyLink('${item.link}')"
+            class="copy-btn">
+
+            🔗 Copy
+
+          </button>
+
+        </div>
+
       </div>
+
       `;
+
     });
 
     html += `</div>`;
+
     container.innerHTML += html;
+
   });
+
 }
 
-// ================= DEAL =================
-function renderDeal(){
+// ================= RENDER DEAL =================
+
+function renderDeal(data){
+
   const container = document.getElementById("deal");
 
   let html = `
-  <h2 class="text-lg font-semibold mb-3">🔥 Flash Sale</h2>
-  <div class="grid grid-cols-2 gap-3">
+    <h2 class="text-lg font-semibold mb-3">
+      🔥 Flash Sale
+    </h2>
+
+    <div class="grid grid-cols-2 gap-3">
   `;
 
-  dealData.forEach(item=>{
+  data.forEach(item=>{
+
     html += `
-    <a href="${item.link}" target="_blank"
-       class="bg-white p-3 rounded-xl shadow">
 
-      <p class="font-semibold text-sm">${item.title}</p>
-      <p class="text-pink-500 font-bold">${item.price}</p>
-      <span class="text-xs text-gray-500">${item.tag}</span>
+    <div class="bg-white p-3 rounded-xl shadow">
 
-    </a>
+      <p class="font-semibold text-sm mb-2">
+        ${item.title}
+      </p>
+
+      <p class="text-pink-500 font-bold mb-1">
+        ${item.price}
+      </p>
+
+      <span class="text-xs text-gray-500">
+        ${item.tag}
+      </span>
+
+      <div class="flex gap-2 mt-3">
+
+        <a href="${item.link}"
+           target="_blank"
+           class="flex-1 block bg-pink-400 text-white text-center py-2 rounded-lg text-sm">
+
+           Xem ngay
+
+        </a>
+
+        <button
+          onclick="copyLink('${item.link}')"
+          class="copy-btn">
+
+          🔗 Copy
+
+        </button>
+
+      </div>
+
+    </div>
+
     `;
+
   });
 
-  html += "</div>";
+  html += `</div>`;
+
   container.innerHTML = html;
+
 }
 
-// ================= QUICK =================
-async function loadQuick(){
-  try{
-    const res = await fetch(SHEET_URL);
-    const text = await res.text();
-
-    const rows = text.split("\n").slice(1);
-
-    const data = rows.map(r=>{
-      const [name, link] = r.split(",");
-      return { name, link };
-    }).filter(i => i.link);
-
-    renderQuick(data);
-
-  }catch(e){
-    console.error("Lỗi QUICK:", e);
-  }
-}
+// ================= RENDER QUICK =================
 
 function renderQuick(data){
+
   const container = document.getElementById("quick");
 
-  let html = `<h2 class="text-lg font-semibold mb-3">⚡ Deal nhanh</h2>`;
+  let html = `
+    <h2 class="text-lg font-semibold mb-3">
+      ⚡ Deal nhanh
+    </h2>
+  `;
 
-  if(!data.length){
-    html += `<p class="text-gray-400">Chưa có deal</p>`;
-    container.innerHTML = html;
-    return;
-  }
+  data.reverse().forEach((item,index)=>{
 
-  data.reverse().forEach((item, index)=>{
-    
-    // 🎯 background logic
     let bg = "";
+
     if(index === 0){
       bg = "bg-yellow-100 border-2 border-yellow-300";
-    } else {
-      bg = index % 2 === 0 ? "bg-white" : "bg-green-50";
+    }else{
+      bg = index % 2 === 0
+        ? "bg-white"
+        : "bg-green-50";
     }
 
     html += `
-    <div class="${bg} p-3 rounded-xl shadow mb-3 card">
-      
-      ${index === 0 ? `
-        <div class="text-xs text-yellow-700 font-semibold mb-1">
-          🔥 Deal mới nhất
-        </div>
-      ` : ''}
 
-      <p class="font-semibold mb-2">${item.name}</p>
+    <div class="${bg} p-4 rounded-xl shadow mb-3 card">
 
-      <a href="${item.link}" target="_blank"
-         class="block bg-green-400 text-white text-center py-2 rounded-lg">
-         Xem ngay
-      </a>
+      ${
+        index === 0
+          ? `
+            <div class="text-xs text-yellow-700 font-semibold mb-2">
+              🔥 Deal mới nhất
+            </div>
+          `
+          : ''
+      }
+
+      <p class="font-semibold mb-3">
+        ${item.name}
+      </p>
+
+      <div class="flex gap-2">
+
+        <a href="${item.link}"
+           target="_blank"
+           class="flex-1 block bg-green-400 text-white text-center py-2 rounded-lg">
+
+           Xem ngay
+
+        </a>
+
+        <button
+          onclick="copyLink('${item.link}')"
+          class="copy-btn">
+
+          🔗 Copy
+
+        </button>
+
+      </div>
 
     </div>
+
     `;
+
   });
 
   container.innerHTML = html;
+
 }
 
 // ================= TAB =================
+
 function switchTab(tab){
 
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.getElementById(tab).classList.add('active');
+  document.querySelectorAll(".tab")
+    .forEach(t=>t.classList.remove("active"));
+
+  document.getElementById(tab)
+    .classList.add("active");
 
   const colors = {
-    easy: '#fb923c',
-    deal: '#f472b6',
-    quick: '#34d399'
+    easy:"#fb923c",
+    deal:"#f472b6",
+    quick:"#34d399"
   };
 
-  ['easy','deal','quick'].forEach(t=>{
-    const btn = document.getElementById('btn-' + t);
-    btn.style.background = '#e5e7eb';
-    btn.classList.add('menu-inactive');
+  ["easy","deal","quick"].forEach(t=>{
+
+    const btn = document.getElementById("btn-" + t);
+
+    btn.style.background = "#e5e7eb";
+
   });
 
-  const active = document.getElementById('btn-' + tab);
-  active.style.background = colors[tab];
-  active.classList.remove('menu-inactive');
+  document.getElementById("btn-" + tab)
+    .style.background = colors[tab];
+
 }
 
-// ================= TRACK =================
-function trackClick(key){
-  console.log("Click:", key);
-  localStorage.setItem("last_click", key);
+// ================= COPY =================
+
+async function copyLink(link){
+
+  try{
+
+    await navigator.clipboard.writeText(link);
+
+    alert("Đã copy link 😎");
+
+  }catch(e){
+
+    alert("Copy thất bại");
+
+  }
+
 }
 
 </script>
