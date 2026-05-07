@@ -12,13 +12,8 @@ body{
   background:#fafafa;
 }
 
-.tab{
-  display:none;
-}
-
-.tab.active{
-  display:block;
-}
+.tab{ display:none; }
+.tab.active{ display:block; }
 
 .section-sleep { background:#fed7aa; }
 .section-eat { background:#bfdbfe; }
@@ -37,39 +32,24 @@ body{
   color:#6b7280;
 }
 
-.menu-inactive{
-  background:#e5e7eb;
-  color:#6b7280;
-}
-
 .card:hover{
   transform:scale(1.01);
   transition:0.2s;
 }
 
-/* ✅ COPY BUTTON NHỎ GỌN HƠN */
 .copy-btn{
-
   height:44px;
-
   padding:0 12px;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   font-size:13px;
   font-weight:500;
-
   border-radius:12px;
-
   background:#f3f4f6;
   border:1px solid #d1d5db;
-
   color:#374151;
-
   white-space:nowrap;
-
   transition:0.2s;
 }
 
@@ -82,9 +62,7 @@ body{
 
 <body class="p-4 text-gray-800 font-sans max-w-xl mx-auto">
 
-<h1 class="text-2xl font-bold mb-2">
-🏡 susochome
-</h1>
+<h1 class="text-2xl font-bold mb-2">🏡 susochome</h1>
 
 <p class="text-sm text-gray-500 mb-4">
 Các món Su Sóc đã dùng hoặc chọn lọc kỹ 👇
@@ -93,32 +71,9 @@ Các món Su Sóc đã dùng hoặc chọn lọc kỹ 👇
 <!-- MENU -->
 <div class="flex gap-2 mb-5">
 
-  <button
-    id="btn-easy"
-    onclick="switchTab('easy')"
-    class="flex-1 py-2 rounded-lg">
-
-    Đồ EASY
-
-  </button>
-
-  <button
-    id="btn-deal"
-    onclick="switchTab('deal')"
-    class="flex-1 py-2 rounded-lg">
-
-    Flash sale
-
-  </button>
-
-  <button
-    id="btn-quick"
-    onclick="switchTab('quick')"
-    class="flex-1 py-2 rounded-lg">
-
-    ⚡ Deal nhanh
-
-  </button>
+  <button id="btn-easy" onclick="switchTab('easy')" class="flex-1 py-2 rounded-lg">Đồ EASY</button>
+  <button id="btn-deal" onclick="switchTab('deal')" class="flex-1 py-2 rounded-lg">Flash sale</button>
+  <button id="btn-quick" onclick="switchTab('quick')" class="flex-1 py-2 rounded-lg">⚡ Deal nhanh</button>
 
 </div>
 
@@ -142,6 +97,17 @@ const QUICK_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTW0wVa-qpkgS
 loadAll();
 switchTab("easy");
 
+// ================= COPY =================
+
+async function copyLink(link){
+  try{
+    await navigator.clipboard.writeText(link);
+    alert("Đã copy link 😎");
+  }catch(e){
+    alert("Copy thất bại");
+  }
+}
+
 // ================= CSV =================
 
 function parseCSVLine(line){
@@ -154,16 +120,12 @@ function parseCSVLine(line){
 
     const char = line[i];
 
-    if(char === '"'){
-      insideQuotes = !insideQuotes;
-    }
+    if(char === '"') insideQuotes = !insideQuotes;
 
     else if(char === "," && !insideQuotes){
       result.push(current);
       current = "";
-    }
-
-    else{
+    } else {
       current += char;
     }
   }
@@ -176,134 +138,100 @@ function parseCSVLine(line){
 // ================= LOAD =================
 
 async function loadAll(){
-
-  await Promise.all([
-    loadEasy(),
-    loadDeal(),
-    loadQuick()
-  ]);
-
+  await Promise.all([loadEasy(), loadDeal(), loadQuick()]);
 }
 
 // ================= EASY =================
 
 async function loadEasy(){
 
-  try{
+  const res = await fetch(EASY_URL);
+  const text = await res.text();
 
-    const res = await fetch(EASY_URL);
-    const text = await res.text();
+  const rows = text.split("\n").slice(1);
 
-    const rows = text.split("\n").slice(1);
+  const grouped = {};
 
-    const grouped = {};
+  rows.forEach(row=>{
 
-    rows.forEach(row=>{
+    if(!row.trim()) return;
 
-      if(!row.trim()) return;
+    const cols = parseCSVLine(row);
 
-      const cols = parseCSVLine(row);
+    const section = cols[0];
 
-      const section = cols[0];
-      const key = cols[1];
-      const name = cols[2];
-      const desc = cols[3];
-      const need = cols[4] === "TRUE";
-      const link = cols[5];
+    if(!grouped[section]) grouped[section] = [];
 
-      if(!grouped[section]){
-        grouped[section] = [];
-      }
-
-      grouped[section].push({
-        key,
-        name,
-        desc,
-        need,
-        link
-      });
-
+    grouped[section].push({
+      key: cols[1],
+      name: cols[2],
+      desc: cols[3],
+      need: cols[4] === "TRUE",
+      link: cols[5]
     });
 
-    renderEasy(grouped);
+  });
 
-  }catch(e){
-    console.error(e);
-  }
-
+  renderEasy(grouped);
 }
 
 // ================= DEAL =================
 
 async function loadDeal(){
 
-  try{
+  const res = await fetch(FLASH_URL);
+  const text = await res.text();
 
-    const res = await fetch(FLASH_URL);
-    const text = await res.text();
+  const rows = text.split("\n").slice(1);
 
-    const rows = text.split("\n").slice(1);
+  const data = [];
 
-    const data = [];
+  rows.forEach(row=>{
 
-    rows.forEach(row=>{
+    if(!row.trim()) return;
 
-      if(!row.trim()) return;
+    const cols = parseCSVLine(row);
 
-      const cols = parseCSVLine(row);
-
-      data.push({
-        title: cols[0],
-        price: cols[1],
-        tag: cols[2],
-        link: cols[3]
-      });
-
+    data.push({
+      title: cols[0],
+      price: cols[1],
+      tag: cols[2],
+      link: cols[3]
     });
 
-    renderDeal(data);
+  });
 
-  }catch(e){
-    console.error(e);
-  }
-
+  renderDeal(data);
 }
 
 // ================= QUICK =================
 
 async function loadQuick(){
 
-  try{
+  const res = await fetch(QUICK_URL);
+  const text = await res.text();
 
-    const res = await fetch(QUICK_URL);
-    const text = await res.text();
+  const rows = text.split("\n").slice(1);
 
-    const rows = text.split("\n").slice(1);
+  const data = [];
 
-    const data = [];
+  rows.forEach(row=>{
 
-    rows.forEach(row=>{
+    if(!row.trim()) return;
 
-      if(!row.trim()) return;
+    const cols = parseCSVLine(row);
 
-      const cols = parseCSVLine(row);
-
-      data.push({
-        name: cols[0],
-        link: cols[1]
-      });
-
+    data.push({
+      name: cols[0],
+      link: cols[1]
     });
 
-    renderQuick(data);
+  });
 
-  }catch(e){
-    console.error(e);
-  }
-
+  renderQuick(data);
 }
 
-// ================= UTIL =================
+// ================= SECTION COLOR =================
 
 function getSectionClass(name){
 
@@ -316,32 +244,11 @@ function getSectionClass(name){
   return "section-support";
 }
 
-function isRecommended(desc){
-
-  if(!desc) return false;
-
-  const text = desc.toLowerCase();
-
-  return text.includes("su sóc")
-      || text.includes("đang xài");
-
-}
-
-function getCTA(item){
-
-  if(item.need){
-    return "Xem ngay";
-  }
-
-  return "Xem chi tiết";
-}
-
-// ================= RENDER EASY =================
+// ================= EASY RENDER (RESTORED FULL FEATURE) =================
 
 function renderEasy(data){
 
   const container = document.getElementById("easy");
-
   container.innerHTML = "";
 
   Object.keys(data).forEach(section=>{
@@ -350,233 +257,143 @@ function renderEasy(data){
 
     let html = `
       <div class="${secClass} p-4 rounded-2xl mb-6">
-
-      <h2 class="font-semibold mb-3">
-        ${section}
-      </h2>
+      <h2 class="font-semibold mb-3">${section}</h2>
     `;
 
     data[section].forEach(item=>{
 
-      const highlight = isRecommended(item.desc);
+      const highlight = item.desc && item.desc.toLowerCase().includes("su sóc");
 
       html += `
+      <div class="bg-white p-4 rounded-xl shadow mb-3 card">
 
-      <div class="bg-white p-4 rounded-xl shadow mb-3 card
-        ${highlight ? 'border-2 border-orange-400' : ''}">
-
-        ${highlight
-          ? `
-            <div class="text-xs text-orange-500 font-semibold mb-1">
-              ⭐ Đang dùng thực tế
-            </div>
-          `
-          : ''
-        }
+        ${highlight ? `
+          <div class="text-xs text-orange-500 font-semibold mb-1">
+            ⭐ Đang dùng thực tế
+          </div>
+        ` : ''}
 
         <div class="flex justify-between items-center mb-2">
-
           <b>${item.name}</b>
 
-          <span class="${
-            item.need
-              ? 'badge-need'
-              : 'badge-optional'
-          } text-xs px-2 py-1 rounded">
-
-            ${
-              item.need
-                ? 'Cần cho EASY'
-                : 'Không bắt buộc'
-            }
-
+          <span class="${item.need ? 'badge-need' : 'badge-optional'} text-xs px-2 py-1 rounded">
+            ${item.need ? 'Cần cho EASY' : 'Không bắt buộc'}
           </span>
-
         </div>
 
-        <p class="text-sm text-gray-500 mb-3">
-          👉 ${item.desc || ""}
-        </p>
+        <p class="text-sm text-gray-500 mb-3">👉 ${item.desc || ""}</p>
 
         <div class="flex gap-2">
 
-          <a href="${item.link}"
-             target="_blank"
-             class="flex-1 block bg-orange-400 text-white text-center py-2 rounded-lg">
+          <a href="${item.link}" target="_blank"
+             class="flex-1 bg-orange-400 text-white text-center py-2 rounded-lg">
 
-             ${getCTA(item)}
+             Xem ngay
 
           </a>
 
-          <button
-            onclick="copyLink('${item.link}')"
-            class="copy-btn">
-
+          <button onclick='copyLink(${JSON.stringify(item.link)})' class="copy-btn">
             🔗 Copy
-
           </button>
 
         </div>
 
-      </div>
-
-      `;
-
+      </div>`;
     });
 
     html += `</div>`;
-
     container.innerHTML += html;
 
   });
-
 }
 
-// ================= RENDER DEAL =================
+// ================= DEAL =================
 
 function renderDeal(data){
 
   const container = document.getElementById("deal");
 
-  let html = `
-    <h2 class="text-lg font-semibold mb-3">
-      🔥 Flash Sale
-    </h2>
-
-    <div class="grid grid-cols-2 gap-3">
-  `;
+  let html = `<h2 class="text-lg font-semibold mb-3">🔥 Flash Sale</h2><div class="grid grid-cols-2 gap-3">`;
 
   data.forEach(item=>{
 
     html += `
-
     <div class="bg-white p-3 rounded-xl shadow">
 
-      <p class="font-semibold text-sm mb-2">
-        ${item.title}
-      </p>
-
-      <p class="text-pink-500 font-bold mb-1">
-        ${item.price}
-      </p>
-
-      <span class="text-xs text-gray-500">
-        ${item.tag}
-      </span>
+      <p class="font-semibold text-sm mb-2">${item.title}</p>
+      <p class="text-pink-500 font-bold mb-1">${item.price}</p>
+      <span class="text-xs text-gray-500">${item.tag}</span>
 
       <div class="flex gap-2 mt-3">
 
-        <a href="${item.link}"
-           target="_blank"
-           class="flex-1 block bg-pink-400 text-white text-center py-2 rounded-lg text-sm">
-
+        <a href="${item.link}" target="_blank"
+           class="flex-1 bg-pink-400 text-white text-center py-2 rounded-lg text-sm">
            Xem ngay
-
         </a>
 
-        <button
-          onclick="copyLink('${item.link}')"
-          class="copy-btn">
-
+        <button onclick='copyLink(${JSON.stringify(item.link)})' class="copy-btn">
           🔗 Copy
-
         </button>
 
       </div>
 
-    </div>
-
-    `;
-
+    </div>`;
   });
 
   html += `</div>`;
-
   container.innerHTML = html;
-
 }
 
-// ================= RENDER QUICK =================
+// ================= QUICK =================
 
 function renderQuick(data){
 
   const container = document.getElementById("quick");
 
-  let html = `
-    <h2 class="text-lg font-semibold mb-3">
-      ⚡ Deal nhanh
-    </h2>
-  `;
+  let html = `<h2 class="text-lg font-semibold mb-3">⚡ Deal nhanh</h2>`;
 
   data.reverse().forEach((item,index)=>{
 
-    let bg = "";
-
-    if(index === 0){
-      bg = "bg-yellow-100 border-2 border-yellow-300";
-    }else{
-      bg = index % 2 === 0
-        ? "bg-white"
-        : "bg-green-50";
-    }
+    let bg = index === 0
+      ? "bg-yellow-100 border-2 border-yellow-300"
+      : (index % 2 === 0 ? "bg-white" : "bg-green-50");
 
     html += `
-
     <div class="${bg} p-4 rounded-xl shadow mb-3 card">
 
-      ${
-        index === 0
-          ? `
-            <div class="text-xs text-yellow-700 font-semibold mb-2">
-              🔥 Deal mới nhất
-            </div>
-          `
-          : ''
-      }
+      ${index === 0 ? `
+        <div class="text-xs text-yellow-700 font-semibold mb-2">
+          🔥 Deal mới nhất
+        </div>
+      ` : ''}
 
-      <p class="font-semibold mb-3">
-        ${item.name}
-      </p>
+      <p class="font-semibold mb-3">${item.name}</p>
 
       <div class="flex gap-2">
 
-        <a href="${item.link}"
-           target="_blank"
-           class="flex-1 block bg-green-400 text-white text-center py-2 rounded-lg">
-
+        <a href="${item.link}" target="_blank"
+           class="flex-1 bg-green-400 text-white text-center py-2 rounded-lg">
            Xem ngay
-
         </a>
 
-        <button
-          onclick="copyLink('${item.link}')"
-          class="copy-btn">
-
+        <button onclick='copyLink(${JSON.stringify(item.link)})' class="copy-btn">
           🔗 Copy
-
         </button>
 
       </div>
 
-    </div>
-
-    `;
-
+    </div>`;
   });
 
   container.innerHTML = html;
-
 }
 
 // ================= TAB =================
 
 function switchTab(tab){
 
-  document.querySelectorAll(".tab")
-    .forEach(t=>t.classList.remove("active"));
-
-  document.getElementById(tab)
-    .classList.add("active");
+  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+  document.getElementById(tab).classList.add("active");
 
   const colors = {
     easy:"#fb923c",
@@ -585,33 +402,10 @@ function switchTab(tab){
   };
 
   ["easy","deal","quick"].forEach(t=>{
-
-    const btn = document.getElementById("btn-" + t);
-
-    btn.style.background = "#e5e7eb";
-
+    document.getElementById("btn-" + t).style.background = "#e5e7eb";
   });
 
-  document.getElementById("btn-" + tab)
-    .style.background = colors[tab];
-
-}
-
-// ================= COPY =================
-
-async function copyLink(link){
-
-  try{
-
-    await navigator.clipboard.writeText(link);
-
-    alert("Đã copy link 😎");
-
-  }catch(e){
-
-    alert("Copy thất bại");
-
-  }
+  document.getElementById("btn-" + tab).style.background = colors[tab];
 
 }
 
