@@ -77,6 +77,14 @@ Các món Su Sóc đã dùng hoặc chọn lọc kỹ 👇
 
 </div>
 
+<!-- SEARCH -->
+<input
+  id="searchInput"
+  type="text"
+  placeholder="🔍 Tìm nhanh sản phẩm..."
+  class="w-full p-3 mb-5 border rounded-xl"
+/>
+
 <!-- TABS -->
 <div id="easy" class="tab active">Đang tải...</div>
 <div id="deal" class="tab">Đang tải...</div>
@@ -92,6 +100,8 @@ const FLASH_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTW0wVa-qpkgS
 
 const QUICK_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTW0wVa-qpkgSESYAAZdEIcpsHepYdr4SUdW0xzmAoi5-g9jTmIU5D2eVl364AYOtGkJcMxakoU3u1S/pub?gid=0&single=true&output=csv";
 
+const API_URL = "https://script.google.com/macros/s/AKfycbwHbe7q-7EfFdMIAa6lWZf_Li23CykndzpQdTvUAXHN8QQgqwzowLwTxt-qh82nts6A/exec";
+
 // ================= INIT =================
 
 loadAll();
@@ -106,6 +116,26 @@ async function copyLink(link){
   }catch(e){
     alert("Copy thất bại");
   }
+}
+
+// ================= TRACK CLICK =================
+
+async function trackClick(key){
+
+  try{
+
+    await fetch(API_URL,{
+      method:"POST",
+      body:JSON.stringify({
+        action:"click",
+        key
+      })
+    });
+
+  }catch(err){
+    console.log(err);
+  }
+
 }
 
 // ================= CSV =================
@@ -244,7 +274,7 @@ function getSectionClass(name){
   return "section-support";
 }
 
-// ================= EASY RENDER (RESTORED FULL FEATURE) =================
+// ================= EASY RENDER =================
 
 function renderEasy(data){
 
@@ -265,7 +295,7 @@ function renderEasy(data){
       const highlight = item.desc && item.desc.toLowerCase().includes("su sóc");
 
       html += `
-      <div class="bg-white p-4 rounded-xl shadow mb-3 card">
+      <div class="deal-item bg-white p-4 rounded-xl shadow mb-3 card">
 
         ${highlight ? `
           <div class="text-xs text-orange-500 font-semibold mb-1">
@@ -285,7 +315,9 @@ function renderEasy(data){
 
         <div class="flex gap-2">
 
-          <a href="${item.link}" target="_blank"
+          <a href="${item.link}"
+             target="_blank"
+             onclick="trackClick('${item.key}')"
              class="flex-1 bg-orange-400 text-white text-center py-2 rounded-lg">
 
              Xem ngay
@@ -318,7 +350,7 @@ function renderDeal(data){
   data.forEach(item=>{
 
     html += `
-    <div class="bg-white p-3 rounded-xl shadow">
+    <div class="deal-item bg-white p-3 rounded-xl shadow">
 
       <p class="font-semibold text-sm mb-2">${item.title}</p>
       <p class="text-pink-500 font-bold mb-1">${item.price}</p>
@@ -326,7 +358,9 @@ function renderDeal(data){
 
       <div class="flex gap-2 mt-3">
 
-        <a href="${item.link}" target="_blank"
+        <a href="${item.link}"
+           target="_blank"
+           onclick="trackClick('${item.title}')"
            class="flex-1 bg-pink-400 text-white text-center py-2 rounded-lg text-sm">
            Xem ngay
         </a>
@@ -359,7 +393,7 @@ function renderQuick(data){
       : (index % 2 === 0 ? "bg-white" : "bg-green-50");
 
     html += `
-    <div class="${bg} p-4 rounded-xl shadow mb-3 card">
+    <div class="deal-item ${bg} p-4 rounded-xl shadow mb-3 card">
 
       ${index === 0 ? `
         <div class="text-xs text-yellow-700 font-semibold mb-2">
@@ -371,7 +405,9 @@ function renderQuick(data){
 
       <div class="flex gap-2">
 
-        <a href="${item.link}" target="_blank"
+        <a href="${item.link}"
+           target="_blank"
+           onclick="trackClick('${item.name}')"
            class="flex-1 bg-green-400 text-white text-center py-2 rounded-lg">
            Xem ngay
         </a>
@@ -387,6 +423,27 @@ function renderQuick(data){
 
   container.innerHTML = html;
 }
+
+// ================= SEARCH =================
+
+document
+  .getElementById("searchInput")
+  .addEventListener("input", function(){
+
+    const keyword = this.value.toLowerCase();
+
+    document.querySelectorAll(".deal-item").forEach(item=>{
+
+      const text = item.innerText.toLowerCase();
+
+      item.style.display =
+        text.includes(keyword)
+          ? ""
+          : "none";
+
+    });
+
+});
 
 // ================= TAB =================
 
