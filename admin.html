@@ -3,42 +3,189 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Susochome admin</title>
+
 <script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+
+body{
+  background:#f3f7fb;
+}
+
+.card{
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.05);
+}
+
+input{
+  outline:none;
+}
+
+input:focus{
+  box-shadow:0 0 0 3px rgba(34,197,94,.15);
+}
+
+</style>
+
 </head>
 
-<body class="p-4 max-w-md mx-auto font-sans">
+<body class="p-4 max-w-md mx-auto font-sans text-gray-800">
 
-<h1 class="text-xl font-bold mb-4">➕ Thêm Deal</h1>
+<!-- HEADER -->
+<div class="mb-6">
 
-<input id="name" class="w-full p-3 border rounded mb-3" placeholder="Tên sản phẩm">
-<input id="link" class="w-full p-3 border rounded mb-3" placeholder="Link Shopee">
+  <div class="flex items-center gap-3 mb-2">
 
-<button onclick="add()" class="bg-green-500 text-white w-full py-3 rounded">
-  Thêm ngay
-</button>
+    <div class="w-12 h-12 rounded-2xl bg-green-500 text-white flex items-center justify-center text-2xl shadow">
+      🏡
+    </div>
+
+    <div>
+
+      <h1 class="text-2xl font-bold">
+        Susochome admin
+      </h1>
+
+      <p class="text-sm text-gray-500">
+        Add link vào Deal nhanh 😎
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- FORM -->
+<div class="bg-white rounded-3xl p-5 card">
+
+  <!-- NAME -->
+  <div class="mb-4">
+
+    <label class="text-sm font-medium block mb-2">
+      Tên sản phẩm
+    </label>
+
+    <input
+      id="name"
+      class="w-full p-4 rounded-2xl bg-slate-50"
+      placeholder="Ví dụ: Bỉm Merries size M"
+    >
+
+  </div>
+
+  <!-- LINK -->
+  <div class="mb-5">
+
+    <label class="text-sm font-medium block mb-2">
+      Link Shopee
+    </label>
+
+    <input
+      id="link"
+      class="w-full p-4 rounded-2xl bg-slate-50"
+      placeholder="https://..."
+    >
+
+  </div>
+
+  <!-- BUTTON -->
+  <button
+    onclick="add()"
+    id="submitBtn"
+    class="
+      w-full
+      bg-green-500
+      hover:bg-green-600
+      transition
+      text-white
+      py-4
+      rounded-2xl
+      font-semibold
+    ">
+
+    ➕ Thêm deal
+
+  </button>
+
+</div>
 
 <script>
 
-const API_URL = "https://script.google.com/macros/s/AKfycbyZVrHOFTU70YGbIgXpBJ_fVOeuoRCLojinUM4QmDogHSwTa0BVGHxW6JC2wZpAYuMS/exec";
+// ================= API =================
+const API_URL =
+"https://script.google.com/macros/s/AKfycbyZVrHOFTU70YGbIgXpBJ_fVOeuoRCLojinUM4QmDogHSwTa0BVGHxW6JC2wZpAYuMS/exec";
 
+// ================= ADD =================
 async function add(){
-  const name = document.getElementById("name").value.trim();
-  const link = document.getElementById("link").value.trim();
+
+  const name =
+    document.getElementById("name")
+      .value
+      .trim();
+
+  const link =
+    document.getElementById("link")
+      .value
+      .trim();
 
   if(!name || !link){
+
     alert("Nhập đủ đi 😅");
+
     return;
   }
 
-  await fetch(API_URL, {
-    method: "POST",
-    body: JSON.stringify({ name, link })
-  });
+  const btn =
+    document.getElementById("submitBtn");
 
-  alert("Đã thêm 😏");
+  try{
 
-  document.getElementById("name").value = "";
-  document.getElementById("link").value = "";
+    // ================= LOADING =================
+    btn.disabled = true;
+
+    btn.innerHTML = `
+      <div class="flex items-center justify-center gap-2">
+        <div class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+        <span>Đang thêm...</span>
+      </div>
+    `;
+
+    // ================= API =================
+    await fetch(API_URL, {
+      method: "POST",
+      body: JSON.stringify({
+        name,
+        link
+      })
+    });
+
+    // ================= SUCCESS =================
+    btn.innerHTML = "✅ Đã thêm";
+
+    document.getElementById("name").value = "";
+    document.getElementById("link").value = "";
+
+    setTimeout(()=>{
+
+      btn.disabled = false;
+
+      btn.innerHTML = "➕ Thêm deal";
+
+    },1500);
+
+  }catch(err){
+
+    console.error(err);
+
+    btn.disabled = false;
+
+    btn.innerHTML = "➕ Thêm deal";
+
+    alert("Có lỗi 😢");
+  }
 }
 
 </script>
